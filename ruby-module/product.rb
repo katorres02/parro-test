@@ -1,7 +1,3 @@
-#Code | Name | Price
-#VOUCHER | Sears Voucher | 5.00€
-#TSHIRT | Sears T-Shirt | 20.00€
-#MUG | Cafify Coffee Mug | 7.50€
 class Product
   attr_accessor :code, :name, :price
 

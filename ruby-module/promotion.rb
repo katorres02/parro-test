@@ -1,15 +1,15 @@
 class Promotion
-  attr_accessor :product_code, :formula, :count, :price
+  attr_reader :product_code, :formula
+  attr_accessor :count, :price
   
   def initialize(args = {})
     @product_code = args[:product_code]
-    @formula = args[:formula]
-
-    @count   = args[:count]
-    @price   = args[:price]
+    @formula      = args[:formula]
   end
 
-  def apply
+  def apply(count, price)
+    @count = count
+    @price = price
     eval(@formula)
   end
 end

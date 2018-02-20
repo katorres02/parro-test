@@ -2,9 +2,12 @@ class Checkout
   attr_reader :products, :cart, :promotions
   
   def initialize(promos = {})
-    @products   = load_products
-    @promotions = set_promos(promos)
-    @cart       = Hash.new({count: 0})
+    @products   = []
+    @promotions = []
+    @cart = Hash.new({product: nil, count: 0})
+
+    load_initial_products
+    set_promos(promos)
   end
 
   def scan(code)
@@ -20,12 +23,18 @@ class Checkout
       if promo.nil?
         result += @cart[x][:product].price * @cart[x][:count]
       else
-        promo.count = @cart[x][:count]
-        promo.price = @cart[x][:product].price
-        result += promo.apply
+        result += promo.apply(@cart[x][:count], @cart[x][:product].price)
       end
     end
     result.to_s + " €"
+  end
+
+  def add_product(product)
+    @products << product
+  end
+
+  def add_promo(promo)
+    @promotions << promo
   end
 
 private
@@ -34,17 +43,15 @@ private
     source.select { |x| x.send(query.keys.first) == query.values.first }.first
   end
 
-  def load_products
-    [
-      Product.new(code: 'VOUCHER', name: 'Sears Voucher', price: 5.00),
-      Product.new(code: 'TSHIRT', name: 'Sears T-Shirt', price: 20.00),
-      Product.new(code: 'MUG', name: 'Cafify Coffee Mug', price: 7.50)
-    ]
+  def load_initial_products
+    add_product Product.new(code: 'VOUCHER', name: 'Sears Voucher', price: 5.00)
+    add_product Product.new(code: 'TSHIRT', name: 'Sears T-Shirt', price: 20.00)
+    add_product Product.new(code: 'MUG', name: 'Cafify Coffee Mug', price: 7.50)
   end
 
   def set_promos(promos)
-    promos.collect do |x|
-      Promotion.new(product_code: x[:product_code], formula: x[:formula])
+    promos.each do |x|
+      add_promo Promotion.new(product_code: x[:product_code], formula: x[:formula])
     end
   end
 end

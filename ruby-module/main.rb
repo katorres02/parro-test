@@ -2,6 +2,12 @@ require './product.rb'
 require './promotion.rb'
 require './checkout.rb'
 
+# This is the complete list of promotion rules that will be applied to each checkout cart order.
+# This strcuture let me to create new rules easily for any product, only the product code is needed.
+# I have noticed for each promotion rule in the problem description that they depends on 2 variables,
+#   price and the number of items, This will be more easy to write a formula with those variables
+#   then aplly that formula for its associated product
+
 pricing_rules = [
   {
     product_code: "VOUCHER",
@@ -12,6 +18,8 @@ pricing_rules = [
     formula: "count >= 3 ? count * 19.0 : count * price "
   }
 ]
+
+# Test scenarios
 
 #Items: VOUCHER, TSHIRT, MUG
 @co = Checkout.new(pricing_rules)

@@ -7,4 +7,14 @@ Rails.application.routes.draw do
   		get 'calculate'
   	end
   end
+
+  namespace :api do
+  	namespace :v1 do
+  		resources :checkout, except: [:index, :show, :create, :new, :edit, :update, :destroy] do
+  			collection do
+  				post 'calculate'
+  			end
+  		end
+  	end
+  end
 end

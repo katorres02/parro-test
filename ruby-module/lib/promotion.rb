@@ -5,8 +5,8 @@ class Promotion
   attr_accessor :count, :price # these variables will be assigned later
   
   def initialize(args = {})
-    @product_code = args[:product_code]
-    @formula      = args[:formula]
+    @product_code = args.fetch(:product_code, '')
+    @formula      = args.fetch(:formula, '')
   end
 
   # this method is called inside the "total" method in Checkout class

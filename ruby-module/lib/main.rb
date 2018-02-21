@@ -22,6 +22,7 @@ pricing_rules = [
 # Test scenarios
 
 #Items: VOUCHER, TSHIRT, MUG
+puts "Items: VOUCHER, TSHIRT, MUG"
 @co = Checkout.new(pricing_rules)
 @co.scan('VOUCHER')
 @co.scan('TSHIRT')
@@ -31,6 +32,7 @@ puts price
 # Total: 32.50€
 
 #Items: VOUCHER, TSHIRT, VOUCHER
+puts "Items: VOUCHER, TSHIRT, VOUCHER"
 @co1 = Checkout.new(pricing_rules)
 @co1.scan('VOUCHER')
 @co1.scan('TSHIRT')
@@ -40,6 +42,7 @@ puts price
 #Total: 25.00€
 
 #Items: TSHIRT, TSHIRT, TSHIRT, VOUCHER, TSHIRT
+puts "Items: TSHIRT, TSHIRT, TSHIRT, VOUCHER, TSHIRT"
 @co2 = Checkout.new(pricing_rules)
 @co2.scan('TSHIRT')
 @co2.scan('TSHIRT')
@@ -51,6 +54,7 @@ puts price
 #Total: 81.00€
 
 #Items: VOUCHER, TSHIRT, VOUCHER, VOUCHER, MUG, TSHIRT, TSHIRT
+puts "Items: VOUCHER, TSHIRT, VOUCHER, VOUCHER, MUG, TSHIRT, TSHIRT"
 @co3 = Checkout.new(pricing_rules)
 @co3.scan('VOUCHER')
 @co3.scan('TSHIRT')
